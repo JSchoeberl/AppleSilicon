@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
 
 
-include_directories(src concurrentqueue)
+include_directories(src concurrentqueue amx)
 
 
 add_executable (demo_tasks demos/demo_tasks.cc 
@@ -24,5 +24,9 @@ target_sources (demo_simd PUBLIC src/simd.h src/timer.h)
 
 add_executable (simd_timings demos/simd_timings.cc)
 target_sources (simd_timings PUBLIC src/simd.h)
+
+
+
+add_executable (demo_silicon demos/demo_silicon.cc)
 
 
