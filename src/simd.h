@@ -97,6 +97,7 @@ namespace ASC_HPC
     auto & Lo() { return lo; }
     auto & Hi() { return hi; }
 
+    T * Ptr() { return lo.Ptr(); }
     const T * Ptr() const { return lo.Ptr(); }
     T operator[] (size_t i) const { return Ptr()[i]; }
 

@@ -83,8 +83,8 @@ int main()
     SIMD<double,8> x0(1.,2.,3.,4.,5.,6.,7.,8.);
     SIMD<double,8> a;
   
-    amx.LoadX(0, x0);
-    amx.StoreX(0, a);
+    amx.LoadX(0, x0.Ptr());
+    amx.StoreX(0, a.Ptr());
 
     cout << "a = " << a << endl << endl;
 
@@ -101,9 +101,9 @@ int main()
       }
 
     for (int i = 0; i < 8; i++)
-      amx.LoadX(i, matX[i]);
+      amx.LoadX(i, matX[i].Ptr());
     for (int i = 0; i < 8; i++)
-      amx.LoadY(i, matY[i]);
+      amx.LoadY(i, matY[i].Ptr());
   
     for (int i = 0; i < 8; i++)
       cout << "x" << i << " = " << amx.X(i) << endl;
@@ -119,7 +119,7 @@ int main()
   }
 
 
-  // Matrix-matrix multiply:
+  // Matrix-matrix multiply 8x8:
   {
     // SiliconAMX amx;
     
@@ -229,6 +229,25 @@ int main()
       }
   }
 
+  {
+    // test transpose via extrv
+    SiliconAMX amx;
+    for (int i = 0; i < 8; i++)
+      {
+        double vals[8];
+        for (int j = 0; j < 8; j++)
+          vals[j] = 10*i+j;
+        amx.LoadZ(8*i, vals);
+      }
+    
+    for (int i = 0; i < 8; i++)
+      amx.ExtrY (8*i,i);
+    
+    for (int i = 0; i < 64; i+=8)
+      cout << "Z" << i << " = " << amx.Z(i) << endl;
+    for (int i = 0; i < 8; i++)
+      cout << "Y" << i << " = " << amx.Y(i) << endl;
+  }
 
-  
+
 }
