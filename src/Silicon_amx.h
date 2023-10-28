@@ -24,9 +24,14 @@ namespace ASC_HPC
       }
 
     // close to AMX - functions:
-    void LoadX (int nr, SIMD<double,8> val)
+    void LoadX (int nr,  SIMD<double,8> & val)
     {
       AMX_LDX(PTR_ROW_FLAGS(&val, nr, 0));
+    }
+
+    void LoadX (int nr, double * ptr)
+    {
+      AMX_LDX(PTR_ROW_FLAGS(ptr, nr, 0));
     }
   
     void StoreX (int nr, SIMD<double,8> & val)
@@ -34,23 +39,43 @@ namespace ASC_HPC
       AMX_STX(PTR_ROW_FLAGS(&val, nr, 0));
     }
 
-    void LoadY (int nr, SIMD<double,8> val)
+    void StoreX (int nr, double * ptr)
+    {
+      AMX_STX(PTR_ROW_FLAGS(ptr, nr, 0));
+    }
+
+    void LoadY (int nr, SIMD<double,8> & val)
     {
       AMX_LDY(PTR_ROW_FLAGS(&val, nr, 0));
+    }
+    void LoadY (int nr, double * ptr)
+    {
+      AMX_LDY(PTR_ROW_FLAGS(ptr, nr, 0));
     }
   
     void StoreY (int nr, SIMD<double,8> & val)
     {
       AMX_STY(PTR_ROW_FLAGS(&val, nr, 0));
     }
-    void LoadZ (int nr, SIMD<double,8> val)
+    
+    void LoadZ (int nr, SIMD<double,8> & val)
     {
-      AMX_LDX(PTR_ROW_FLAGS(&val, nr, 0));
+      AMX_LDZ(PTR_ROW_FLAGS(&val, nr, 0));
     }
   
+    void LoadZ (int nr, double * ptr)
+    {
+      AMX_LDZ(PTR_ROW_FLAGS(ptr, nr, 0));
+    }
+    
     void StoreZ (int nr, SIMD<double,8> & val)
     {
       AMX_STZ(PTR_ROW_FLAGS(&val, nr, 0));
+    }
+
+    void StoreZ (int nr, double * ptr)
+    {
+      AMX_STZ(PTR_ROW_FLAGS(ptr, nr, 0));
     }
 
     // outer product of x[ix] and y[iy], added to (z[iz], z[iz+8], ...)
